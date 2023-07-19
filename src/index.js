@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
 
 const client = new Client({
@@ -15,13 +15,23 @@ client.on("ready", (c) => {
 });
 
 client.on("messageCreate", (message) => {
-    if (message.author.bot) {
-        return;
-    }
-    if (message.content == "hello world") {
-        message.reply('Hey noob!');
-    }
-    console.log(message.content);
+  if (message.author.bot) {
+    return;
+  }
+  if (message.content == "hello world") {
+    message.reply("Hey noob!");
+  }
+  console.log(message.content);
+});
+
+client.on("interactionCreate", (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+  if (interaction.commandName === 'hello') {
+      interaction.reply("sup noob.");
+  }
+  if (interaction.commandName === 'bye') {
+      interaction.reply("cya");
+  }
 });
 
 client.login(process.env.TOKEN);
